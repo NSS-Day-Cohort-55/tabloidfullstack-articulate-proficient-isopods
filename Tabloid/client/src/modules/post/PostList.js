@@ -18,7 +18,7 @@ export const PostList = () =>{
             <h2>Posts</h2>
             <div className="row justify-content-center">
             {posts.map(res => (
-               <Post post={res} key={res.Id}/>
+               res.CreateDateTime > Date.now ? "" : <Post post={res} key={res.Id}/>
             ))}
             </div>
         </section>

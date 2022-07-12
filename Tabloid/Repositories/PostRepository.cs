@@ -31,7 +31,8 @@ namespace Tabloid.Repositories
                                                IsApproved, 
                                                CategoryId, 
                                                UserProfileId
-                                          FROM Post";
+                                          FROM Post
+                                            ORDER BY CreateDateTime DESC";
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -39,19 +40,23 @@ namespace Tabloid.Repositories
 
                         while (reader.Read())
                         {
-                            var post = new Post
+                            if (reader.GetBoolean(reader.GetOrdinal("IsApproved")))
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Title = reader.GetString(reader.GetOrdinal("Title")),
-                                Content = reader.GetString(reader.GetOrdinal("Content")),
-                                ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
-                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                                IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
-                                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
+                                var post = new Post
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    Title = reader.GetString(reader.GetOrdinal("Title")),
+                                    Content = reader.GetString(reader.GetOrdinal("Content")),
+                                    ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
+                                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                                    IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                    UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
 
-                            };
-                            posts.Add(post);
+                                };
+                                posts.Add(post);
+
+                            }
                         }
                         return posts;
                     }
