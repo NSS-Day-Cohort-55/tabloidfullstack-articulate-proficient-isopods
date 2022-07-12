@@ -31,6 +31,11 @@ namespace Tabloid.Controllers
             }
             return Ok();
         }
+        [HttpGet]
+        public IActionResult GetAllUsers()
+        {
+            return Ok(_userProfileRepository.GetAllUsers());
+        }
 
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
