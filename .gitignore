@@ -342,6 +342,6 @@ healthchecksdb
 
 *.swp
 appsettings.Local.json
-*.env
+.env
 01_Tabloid_Create_DB.sql
 02_Tabloid_Seed_Data.sql

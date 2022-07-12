@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import { CategoryList } from "./category/CategoryList";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -16,8 +17,9 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
+          <Route path="category" element={<CategoryList />} />
         </Route>
       </Routes>
     </main>
   );
-};
+}
