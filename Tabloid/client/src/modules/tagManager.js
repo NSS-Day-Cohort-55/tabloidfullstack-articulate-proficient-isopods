@@ -1,5 +1,5 @@
 const baseUrl = "/api/Tag";
 
 export const getAllTags = () => {
-  return fetch(`${baseUrl}`).then((res) => res.json());
+  return fetch(baseUrl).then((res) => res.json());
 }

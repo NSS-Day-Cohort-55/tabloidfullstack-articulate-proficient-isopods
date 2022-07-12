@@ -4,7 +4,7 @@ import { TagCard } from "./TagCard";
 
 export const TagList = () => {
 
-  const [tags, setTags] = useState({});
+  const [tags, setTags] = useState([]);
 
   const getTags = () => {
     getAllTags().then((response) => setTags(response));
@@ -13,6 +13,8 @@ export const TagList = () => {
   useEffect(() => {
     getTags();
   }, []);
+
+  console.log(tags)
 
   return (
     <>
