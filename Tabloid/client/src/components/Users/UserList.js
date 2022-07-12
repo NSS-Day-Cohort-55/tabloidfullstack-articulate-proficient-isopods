@@ -26,9 +26,11 @@ export const UserList = () => {
                 <tbody>
                     {users.map(user => 
                     <>
-                        <td>{user.displayName}</td>
-                        <td>{user.firstName} {user.lastName}</td>
-                        <td>{user.userType.name}</td>    
+                        <tr>
+                            <td>{user.displayName}</td>
+                            <td>{user.firstName} {user.lastName}</td>
+                            <td>{user.userType.name}</td>
+                        </tr>
                     </>
                     )}
                 </tbody>
