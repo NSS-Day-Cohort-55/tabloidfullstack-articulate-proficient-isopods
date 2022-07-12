@@ -24,7 +24,7 @@ namespace Tabloid
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
 
-            var firebaseProjectId = Configuration.GetValue<string>("tabloid-ee829");
+            var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
