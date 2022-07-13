@@ -6,5 +6,5 @@ export const getAllUsers = () => {
 
 export const getUserById = (q) => {
     return fetch(`${baseUrl}/details/${q}`)
-        .then((res) => res.json())
-}
+        .then((res) => res.json());
+};

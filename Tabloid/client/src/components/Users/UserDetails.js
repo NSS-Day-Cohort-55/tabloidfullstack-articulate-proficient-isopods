@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserById } from "../../modules/userManager"
+import { getUserById } from "../../modules/userManager";
 import { UserCard } from "./UserCard";
 
 
