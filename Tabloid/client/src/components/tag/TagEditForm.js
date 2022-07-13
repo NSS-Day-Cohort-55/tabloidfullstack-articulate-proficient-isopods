@@ -50,24 +50,20 @@ export const TagEditForm = () => {
   return (
     <>
     <h1>Edit a Tag</h1>
-    <div className="container">
       <fieldset>
-        <div>
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" onChange={handleFieldChange} required autoFocus className="form-control" placeholder="Tag name" value={tag.name} />
-        </div>
       </fieldset>
       
-      <button type="button" disabled={isLoading} className="btn btn-primary"
+      <button disabled={isLoading}
         onClick={updateExistingTag}>
         Update
       </button>
 
-      <button type="button" disabled={isLoading} className="btn btn-primary"
+      <button disabled={isLoading}
         onClick={ClickCancel}>
         Cancel
       </button>   
-    </div>
     </>
   )
 

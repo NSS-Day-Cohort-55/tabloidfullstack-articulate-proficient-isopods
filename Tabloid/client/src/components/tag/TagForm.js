@@ -60,21 +60,17 @@ export const TagForm = () => {
   return (
     <main>
       <h1>Create a Tag</h1>
-      <div className="container">
       <fieldset>
-					<div>
 						<label htmlFor="name">New Tag:</label>
 						<input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Tag Name" value={tag.name} />
-					</div>
 				</fieldset>
-      </div>
 
       <div className="buttons">
-					<button type="button" className="btn btn-primary"
+					<button
 						onClick={ClickAddTag}>
 						Create Tag
 					</button>
-					<button type="button" className="btn btn-primary"
+					<button
 						onClick={ClickCancel}>
 						Cancel
 					</button>
