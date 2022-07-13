@@ -77,7 +77,63 @@ namespace Tabloid.Repositories
 
         public Post GetPostById(int Id)
         {
-            throw new System.NotImplementedException();
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT p.Id AS PostId, p.Title, p.Content, p.ImageLocation AS PostImage, 
+                                               p.CreateDateTime AS PostDate, p.IsApproved, p.CategoryId, p.UserProfileId,
+                                                
+                                               up.Id AS ProfileId, up.FirebaseUserId, up.DisplayName, up.FirstName, up.LastName,
+                                               up.Email, up.CreateDateTime AS ProfileDate, up.ImageLocation AS ProfileImage, up.UserTypeId
+                                          FROM Post p
+                                     LEFT JOIN UserProfile up ON up.Id=p.UserProfileId
+                                         WHERE p.Id=@id";
+                                            
+
+                    cmd.Parameters.AddWithValue("@id", Id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        if (reader.GetBoolean(reader.GetOrdinal("IsApproved")))
+                        {
+                            var post = new Post
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("PostId")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Content = reader.GetString(reader.GetOrdinal("Content")),
+                                ImageLocation = reader.GetString(reader.GetOrdinal("PostImage")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("PostDate")),
+                                IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                                Profile = new UserProfile
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("ProfileId")),
+                                    FirebaseUserId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
+                                    DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("ProfileDate")),
+                                    ImageLocation = reader.GetString(reader.GetOrdinal("ProfileImage")),
+                                    UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId"))
+
+                                }
+
+                            };
+
+                            return post;
+
+                        }
+                    }
+                    return null;
+                }
+            }
         }
 
         public void Update(Post post)
