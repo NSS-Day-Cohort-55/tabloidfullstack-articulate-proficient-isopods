@@ -14,5 +14,7 @@ namespace Tabloid.Models
         public int CategoryId { get; set; }
         public int UserProfileId { get; set; }
 
+        public UserProfile Profile { get; set; }
+
     }
 }
