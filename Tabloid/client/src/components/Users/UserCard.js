@@ -3,7 +3,14 @@ import { Card, CardBody, CardTitle} from "reactstrap";
 
 export const UserCard = ({user}) => {
     const creationDate = user.createDateTime
-    const splitDate = creationDate.split("T")[0]
+    let splitDate = ""
+    if(!creationDate){
+        splitDate = "unknown"
+    }
+    else
+    {
+        splitDate = creationDate.split("T")[0]
+    }
     console.log(creationDate)
     console.log(splitDate)
     return (
