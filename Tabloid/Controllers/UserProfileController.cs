@@ -36,10 +36,10 @@ namespace Tabloid.Controllers
         {
             return Ok(_userProfileRepository.GetAllUsers());
         }
-        [HttpGet("{id}")]
-        public IActionResult GetByUserId(int userId)
+        [HttpGet("details/{id}")]
+        public IActionResult GetByUserId(int id)
         {
-            var userProfile = _userProfileRepository.GetByUserId(userId);
+            var userProfile = _userProfileRepository.GetByUserId(id);
             if (userProfile == null)
             {
                 return NotFound();
