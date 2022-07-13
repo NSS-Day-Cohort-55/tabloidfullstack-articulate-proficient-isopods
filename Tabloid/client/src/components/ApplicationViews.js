@@ -4,9 +4,11 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import { UserDetails } from "./Users/UserDetails";
-import { TagList } from "./tag/TagList"
 import {PostList} from "./post/PostList.js"
 import { UserList } from "./Users/UserList";
+import { TagList } from "./tag/TagList";
+import { TagForm } from "./tag/TagForm";
+import { TagEditForm } from "./tag/TagEditForm";
 import { PostDetail } from "./post/PostDetail";
 import { CategoryList } from "./category/CategoryList";
 
@@ -21,6 +23,9 @@ export default function ApplicationViews({ isLoggedIn }) {
             element={isLoggedIn ? <PostList /> : <Navigate to="/login" />}
           />
           <Route path="tag" element={<TagList />} />
+          <Route path="/tag/add" element={<TagForm/>}/>
+          <Route path="/tag/:tagId/edit" element={<TagEditForm/>}/>
+
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="users" element ={<UserList/>} />
