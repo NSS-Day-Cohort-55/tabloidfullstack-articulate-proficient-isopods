@@ -7,7 +7,7 @@ export const Post = ({post}) =>{
         <Card>
             <h3>{post.title}</h3>
             <CardBody>
-                <p>{post.content}</p>
+                <p>{post.UserProfile.FirstName} {post.UserProfile.LastName}</p>
                 <p>{post.createDateTime}</p>
             </CardBody>
         </Card>

@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import {PostList} from "../modules/post/PostList.js"
+import {PostList} from "./post/PostList.js"
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (

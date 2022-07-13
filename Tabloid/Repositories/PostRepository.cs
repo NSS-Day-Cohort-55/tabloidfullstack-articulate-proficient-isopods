@@ -23,15 +23,13 @@ namespace Tabloid.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, 
-                                               Title, 
-                                               Content, 
-                                               ImageLocation, 
-                                               CreateDateTime, 
-                                               IsApproved, 
-                                               CategoryId, 
-                                               UserProfileId
-                                          FROM Post
+                    cmd.CommandText = @"SELECT p.Id, p.Title, p.Content, p.ImageLocation, 
+                                               p.CreateDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
+                                                
+                                               up.Id, up.FirebaseUserId, up.DisplayName, up.FirstName, up.LastName,
+                                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId
+                                          FROM Post p
+                                     LEFT JOIN UserProfile up ON up.Id=p.UserProfileId
                                             ORDER BY CreateDateTime DESC";
 
                     using (var reader = cmd.ExecuteReader())
