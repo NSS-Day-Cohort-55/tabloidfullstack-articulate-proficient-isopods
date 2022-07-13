@@ -25,3 +25,5 @@ yarn-error.log*
 
 01_Tabloid_Create_08.sql
 02_Tabloid_Seed_Data.sql
+appsettings.json
+appsettings.Local.json
