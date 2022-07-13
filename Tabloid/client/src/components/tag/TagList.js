@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllTags } from "../../modules/tagManager";
+import { getAllTags, deleteTag } from "../../modules/tagManager";
 import { TagCard } from "./TagCard";
 
 export const TagList = () => {
@@ -19,13 +19,18 @@ export const TagList = () => {
 
   console.log(tags)
 
+  const callDeleteTag = (id) => {
+    deleteTag(id)
+    .then(() => getTags())
+  };
+
   return (
     <>
-      <h1>Hideout List</h1>
+      <h1>Tag List</h1>
       <div className="container">
         <div className="row justifty-content-center">
           {tags.map((tag) => (
-            <TagCard tag={tag} key={tag.id}/>
+            <TagCard tag={tag} key={tag.id} callDeleteTag={callDeleteTag}/>
           ))}
         </div>
       </div>
