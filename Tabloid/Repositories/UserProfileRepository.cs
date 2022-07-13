@@ -121,6 +121,48 @@ namespace Tabloid.Repositories
             }
         }
 
+        public UserProfile GetByUserId(int userId)
+        {
+            using (var conn = Connection )
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT up.Id AS UserId, up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime, up.UserTypeId AS TypeId, ut.Name AS TypeName
+                        FROM UserProfile as up
+                        LEFT JOIN UserType as ut ON ut.Id = up.UserTypeId
+                        WHERE up.Id = @userId";
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    var reader = cmd.ExecuteReader();
+                    if(reader.Read())
+                    {
+                        UserProfile profile = new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "UserId"),
+                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            Email = DbUtils.GetString(reader, "email"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            UserTypeId = DbUtils.GetInt(reader, "TypeId"),
+                            UserType = new UserType
+                            {
+                                Id = DbUtils.GetInt(reader, "TypeId"),
+                                Name = DbUtils.GetString(reader, "TypeName")
+                            }
+                        };
+                        reader.Close();
+                        return profile;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {

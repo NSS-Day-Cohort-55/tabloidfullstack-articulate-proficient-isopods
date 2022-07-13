@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CategoryCard } from "./CategoryCard";
 import { getAllCategories, addCategory } from "../../modules/categoryManager";
+import { useNavigate } from "react-router-dom";
 
 export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -8,6 +9,8 @@ export const CategoryList = () => {
   const [newCategory, setNewCategory] = useState({
     name: "",
   });
+
+  const navigate = useNavigate();
 
   const getCategories = () => {
     getAllCategories().then((r) => setCategories(r));
@@ -19,7 +22,10 @@ export const CategoryList = () => {
 
   const handleSubmitCategory = (event) => {
     event.preventDefault();
-    addCategory(newCategory).then(() => setIsAddingCategory(false));
+    addCategory(newCategory).then(() => {
+      setIsAddingCategory(false);
+      window.location.reload();
+    });
   };
 
   const handleFieldChange = (event) => {

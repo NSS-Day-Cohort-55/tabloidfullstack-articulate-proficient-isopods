@@ -1,9 +1,12 @@
 import React,  { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import { getAllUsers } from "../../modules/userManager";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const UserList = () => {
     const [users, setUsers] = useState([]);
+    const navigate = useNavigate();
+    const {userId} = useParams();
 
     const getUsers = () => {
         getAllUsers().then(res => setUsers(res));
@@ -12,6 +15,10 @@ export const UserList = () => {
     useEffect(() => {
         getUsers();
     }, []);
+
+    const handleNavigate = (id) => {
+        navigate(`/UserDetails/${id}`)
+    }
 
     return (
         <div className="user-display">
@@ -30,7 +37,8 @@ export const UserList = () => {
                             <td>{user.displayName}</td>
                             <td>{user.firstName} {user.lastName}</td>
                             <td>{user.userType.name}</td>
-                        </tr>
+                            <td><button onClick={() => handleNavigate(user.id)}>Details</button></td>
+                        </tr>                        
                     </>
                     )}
                 </tbody>
