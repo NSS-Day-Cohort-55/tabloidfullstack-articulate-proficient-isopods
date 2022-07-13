@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Post} from "./Post.js"
-import {getAllPosts} from "./PostManager.js"
+import {getAllPosts} from "../../modules/PostManager.js"
 
 
 export const PostList = () =>{
