@@ -42,6 +42,11 @@ export default function Header({ isLoggedIn }) {
                     Users
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/tag">
+                    Tag Manager
+                  </NavLink>
+                </NavItem>
               </>
             )}
           </Nav>
