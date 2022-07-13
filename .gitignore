@@ -342,7 +342,10 @@ healthchecksdb
 
 *.swp
 appsettings.Local.json
+appsettings.local.json
 .env
+.env.local
+.env.Local
 01_Tabloid_Create_DB.sql
 02_Tabloid_Seed_Data.sql
 appsettings.json
