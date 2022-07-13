@@ -23,17 +23,22 @@ export default function Header({ isLoggedIn }) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn &&
-            <>
+            {isLoggedIn && (
+            <>  
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
               </NavItem>
+
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/tag">Tag Manager</NavLink>
+              </NavItem>
+
               <NavItem>
                 <NavLink tag={RRNavLink} to="users">Users</NavLink>  
               </NavItem>            
-            </>
-              
-            }
+
+            </>  
+            )}
           </Nav>
           <Nav navbar>
             {isLoggedIn &&
