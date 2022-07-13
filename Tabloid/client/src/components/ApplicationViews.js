@@ -6,6 +6,10 @@ import Hello from "./Hello";
 import {PostList} from "./post/PostList.js"
 import { UserList } from "./Users/UserList";
 import { PostDetail } from "./post/PostDetail";
+import { CategoryList } from "./category/CategoryList";
+import { PostList } from "../modules/post/PostList";
+import { UserList } from "./Users/UserList";
+import { TagList } from "./tag/TagList";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -16,13 +20,16 @@ export default function ApplicationViews({ isLoggedIn }) {
             index
             element={isLoggedIn ? <PostList /> : <Navigate to="/login" />}
           />
+          <Route path="tag" element={<TagList />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="users" element ={<UserList/>} />
           <Route path="/:postId/PostDetails" element={<PostDetail/>}/>
+          <Route path="users" element={<UserList />} />
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
+          <Route path="category" element={<CategoryList />} />
         </Route>
       </Routes>
     </main>
   );
-};
+}
