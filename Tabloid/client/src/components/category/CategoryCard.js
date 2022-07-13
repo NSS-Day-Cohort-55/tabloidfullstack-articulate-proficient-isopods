@@ -1,10 +1,12 @@
 import React from "react";
 import { Card, CardBody } from "reactstrap";
 
-export const CategoryCard = () => {
+export const CategoryCard = ({ category }) => {
   return (
-    <>
-      <h1>Random Bullshit Goes Here</h1>
-    </>
+    <Card className="m-4">
+      <CardBody>
+        <strong>{category.name}</strong>
+      </CardBody>
+    </Card>
   );
 };
