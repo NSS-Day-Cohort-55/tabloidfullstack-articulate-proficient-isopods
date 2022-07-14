@@ -40,8 +40,9 @@ namespace Tabloid.Controllers
         }
 
         [HttpPost("{id}")]
-        public IActionResult Post()
+        public IActionResult Post(int postId, int reactionId)
         {
+            _reactionRepository.AddPostReaction(postId, reactionId);
 
         }
     }
