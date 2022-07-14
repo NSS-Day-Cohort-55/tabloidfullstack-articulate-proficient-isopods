@@ -4,17 +4,34 @@ import { useNavigate, useParams } from "react-router-dom";
 import {Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Alert} from "reactstrap";
 import { changeUserType, getUserById } from "../../modules/userManager";
 
-export const UpdateUser = () => {
+export const UpdateUser = ({getLoggedInUser}) => {
     const [selectedUser, setSelectedUser] = useState({});
     const [isClicked, setIsClicked] = useState(false);
     const navigate = useNavigate();
     const {userId} = useParams();
+    const [currentUser, setCurrentUser] = useState({})
+
+    useEffect(() => {
+        getLoggedInUser()
+            .then(res => setCurrentUser(res))
+            
+    }, [])
 
     useEffect(() => {
         getUserById(userId)
-            .then(res => setSelectedUser(res))
+            .then(res => {
+                //TODO Fix this you dunce
+                if(currentUser.userTypeId == 1){
+                    setSelectedUser(res)
+                } else if (currentUser.id == res.id){
+                    return "Can't change your own status. Shoo."
+                }                
+                else{
+                    return "Not an admin. Go away."
+                }
+            })
         
-    }, [])
+    }, [currentUser])
 
     const generateAlert = (id) => {  
         let alertText = ""      
