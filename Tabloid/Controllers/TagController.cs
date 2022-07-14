@@ -21,6 +21,16 @@ namespace Tabloid.Controllers
             return Ok(_TagRepository.GetAllTags());
         }
 
+        [HttpGet("name")]
+        public IActionResult GetByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return NotFound();
+            }
+            return Ok(_TagRepository.GetAllTagsByName(name));
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
