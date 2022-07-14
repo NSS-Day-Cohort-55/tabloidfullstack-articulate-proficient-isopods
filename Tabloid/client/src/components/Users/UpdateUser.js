@@ -30,9 +30,43 @@ export const UpdateUser = ({user}) => {
     ]
 
     const handleUpdateUserType = () => {
-        let newUser = {...selectedUser}
+        const newUser = {...selectedUser}
         if(newUser.userType.id == 1){
-            
+            let changeUser = {
+                Id : newUser.id,
+                firebaseUserId : newUser.firebaseUserId,
+                firstName : newUser.firstName,
+                lastName : newUser.lastName,
+                displayName : newUser.displayName,
+                email : newUser.email,
+                createDateTime : newUser.createDateTime,
+                imageLocation : newUser.imageLocation,
+                userTypeId : 2,
+                userType : {
+                    id : 2,
+                    name : "Author"
+                },
+                fullName : newUser.fullName
+            } 
+            changeUserType(changeUser)           
+        } else {
+            let changeUser = {
+                Id : newUser.id,
+                firebaseUserId : newUser.firebaseUserId,
+                firstName : newUser.firstName,
+                lastName : newUser.lastName,
+                displayName : newUser.displayName,
+                email : newUser.email,
+                createDateTime : newUser.createDateTime,
+                imageLocation : newUser.imageLocation,
+                userTypeId : 1,
+                userType : {
+                    id : 1,
+                    name : "Admin"
+                },
+                fullName : newUser.fullName
+            }   
+            changeUserType(changeUser)
         }
     }
 
