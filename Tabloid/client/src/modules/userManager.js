@@ -9,3 +9,8 @@ export const getUserById = (q) => {
         .then((res) => res.json());
 };
 // TODO Make an edit usertype method
+
+export const changeUserType = (q) => {
+    return fetch(`${baseUrl}/${q}`)
+        .then((res) => res.json())
+}
