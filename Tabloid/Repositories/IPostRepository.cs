@@ -11,5 +11,6 @@ namespace Tabloid.Repositories
         void Delete(int id);
 
         void Update(Post post);
+        List<Post> GetPostByTagName(string name);
     }
 }

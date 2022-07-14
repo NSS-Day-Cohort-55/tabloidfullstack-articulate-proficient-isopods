@@ -20,3 +20,8 @@ export const editPost = (post) =>{
     }).then(res => res.json())
 
 }
+
+export const getPostByTagName = (name) => {
+    return fetch(`${baseUrl}/tagName?tagName=${name}`)
+    .then(res => res.json())
+  }

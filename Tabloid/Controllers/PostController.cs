@@ -43,5 +43,15 @@ namespace Tabloid.Controllers
         }
 
 
+        [HttpGet("tagName")]
+        public IActionResult GetByTagName(string tagName)
+        {
+            if (string.IsNullOrEmpty(tagName))
+            {
+                return NotFound();
+            }
+            return Ok(_postRepository.GetPostByTagName(tagName));
+        }
+
     }
 }
