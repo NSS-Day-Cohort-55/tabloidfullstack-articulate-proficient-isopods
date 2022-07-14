@@ -58,5 +58,17 @@ namespace Tabloid.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserProfile user)
+        {
+            if(id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            _userProfileRepository.UpdateUserProfile(user);
+            return NoContent();
+        }
     }
 }
