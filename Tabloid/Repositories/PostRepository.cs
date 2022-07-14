@@ -152,8 +152,10 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@image", post.ImageLocation);
                     cmd.Parameters.AddWithValue("@date", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@id", post.Id);
 
                     cmd.ExecuteNonQuery();
+
                 }
             }
         }
