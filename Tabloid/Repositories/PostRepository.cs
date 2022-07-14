@@ -138,7 +138,26 @@ namespace Tabloid.Repositories
 
         public void Update(Post post)
         {
-            throw new System.NotImplementedException();
+            using (var conn = Connection)
+            { 
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Post
+                                           SET Title=@title, Content=@content, ImageLocation=@image, CreateDateTime=@date
+                                         WHERE Id=@id";
+
+                    cmd.Parameters.AddWithValue("@content", post.Content);
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@image", post.ImageLocation);
+                    cmd.Parameters.AddWithValue("@date", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
         }
     }
 }
