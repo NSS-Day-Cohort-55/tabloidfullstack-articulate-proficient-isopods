@@ -90,7 +90,7 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT up.Id AS UserId, up.DisplayName, up.FirstName, up.LastName, up.UserTypeId AS TypeId,  ut.Name AS TypeName
+                         SELECT up.Id AS UserId, up.DisplayName, up.FirstName, up.LastName, up.Email, up.FirebaseUserId, up.CreateDateTime, up.ImageLocation, up.UserTypeId AS TypeId,  ut.Name AS TypeName
                          FROM UserProfile as up
                          LEFT JOIN UserType as ut ON ut.Id = up.UserTypeId
                          ORDER BY up.FirstName";
@@ -105,6 +105,11 @@ namespace Tabloid.Repositories
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            UserTypeId = DbUtils.GetInt(reader, "TypeId"),
 
                             UserType = new UserType()
                             {
@@ -159,6 +164,25 @@ namespace Tabloid.Repositories
                     {
                         return null;
                     }
+                }
+            }
+        }
+
+        public void UpdateUserProfile (UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE UserProfile
+                        SET UserTypeId = @userTypeId
+                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@userTypeId", userProfile.UserTypeId);
+                    cmd.Parameters.AddWithValue("@id", userProfile.Id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

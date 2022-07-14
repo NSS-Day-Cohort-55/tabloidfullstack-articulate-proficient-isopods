@@ -38,7 +38,7 @@ export const CategoryList = () => {
   };
 
   const newCategoryCodeArray = [
-    <form className="new_review_form">
+    <form className="new_category_form">
       <h2>Add Category</h2>
       <fieldset>
         <label className="new_category_label" htmlFor="new_category_name">
