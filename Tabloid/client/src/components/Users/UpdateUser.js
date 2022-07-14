@@ -2,9 +2,9 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Alert} from "reactstrap";
-import { changeUserType } from "../../modules/userManager";
+import { changeUserType, getUserById } from "../../modules/userManager";
 
-export const UpdateUser = ({user}) => {
+export const UpdateUser = () => {
     const [selectedUser, setSelectedUser] = useState({});
     const [isClicked, setIsClicked] = useState(false);
     const navigate = useNavigate();
@@ -71,7 +71,9 @@ export const UpdateUser = ({user}) => {
     }
 
     useEffect(() => {
-        setSelectedUser(user);
+        getUserById(userId)
+            .then(res => setSelectedUser(res))
+        
     }, [])
 
     return (
