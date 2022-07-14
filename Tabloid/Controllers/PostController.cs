@@ -44,7 +44,8 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Add(Post post)
         {
-            return Ok(_postRepository.AddPost(post));
+            _postRepository.AddPost(post);
+            return Ok(post);
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

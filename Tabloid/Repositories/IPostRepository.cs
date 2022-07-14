@@ -12,7 +12,7 @@ namespace Tabloid.Repositories
 
         void Update(Post post);
 
-        Post AddPost(Post post);
+        void AddPost(Post post);
 
     }
 }
