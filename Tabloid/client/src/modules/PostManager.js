@@ -21,6 +21,10 @@ export const editPost = (post) =>{
 
 }
 
+export const getPostByTagName = (name) => {
+    return fetch(`${baseUrl}/tagName?tagName=${name}`)
+    .then(res => res.json())
+  }
 export const addPost = (postObj) =>{
     return fetch(`${baseUrl}/${postObj.id}`, {
         method: "POST",

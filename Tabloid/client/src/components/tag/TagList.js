@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { getAllTags, deleteTag, getTagsByName } from "../../modules/tagManager";
+import { getPostByTagName } from "../../modules/PostManager";
 import { TagCard } from "./TagCard";
 
 export const TagList = () => {
@@ -35,9 +36,10 @@ export const TagList = () => {
   }
 
   else {
-    window.alert("You already have a Hideout by this name")
+    window.alert("Input a Name")
   }
   };
+
 
   const CallReset = () => {
     getTags()
@@ -50,7 +52,7 @@ export const TagList = () => {
       <fieldset>
 						<label htmlFor="name">Search Tags:</label>
 						<input type="text" id="name" className="form-control"/>
-				</fieldset>
+			</fieldset>
       <button
 						onClick={CallSearchTags}>
 						Search
@@ -84,6 +86,7 @@ export const TagList = () => {
             </tbody>
         </Table>
         <button onClick={() => {navigate("/tag/add")}}>Create Tag</button>
+        <button onClick={() => {navigate(`/tag/postsearch`)}}>Search Posts By Tag</button> 
     </div>
 )
 }

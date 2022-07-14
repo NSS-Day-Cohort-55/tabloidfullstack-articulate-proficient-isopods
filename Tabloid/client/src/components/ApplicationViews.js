@@ -5,6 +5,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import { UserDetails } from "./Users/UserDetails";
 import { PostList } from "./post/PostList.js";
+import { PostListByTag } from "./tag/PostListByTag";
 import { UserList } from "./Users/UserList";
 import { UpdateUser } from "./Users/UpdateUser";
 import { TagList } from "./tag/TagList";
@@ -27,6 +28,7 @@ export default function ApplicationViews({ isLoggedIn, getLoggedInUser }) {
           <Route path="tag" element={<TagList />} />
           <Route path="/tag/add" element={<TagForm />} />
           <Route path="/tag/:tagId/edit" element={<TagEditForm />} />
+          <Route path="tag/postsearch" element={<PostListByTag />} />
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

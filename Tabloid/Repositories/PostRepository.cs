@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using Tabloid.Models;
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
@@ -197,6 +199,43 @@ namespace Tabloid.Repositories
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
+            }
+        }
+
+        public List<Post> GetPostByTagName(string name)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT 
+	                        p.Id AS PostId, p.Title
+                        FROM PostTag pt
+	                        JOIN Post p ON pt.PostId = p.Id
+	                        JOIN Tag t ON pt.PostId = t.Id
+                        WHERE t.Name LIKE '%' + @name + '%'
+                        ";
+
+                    DbUtils.AddParameter(cmd, "@name", name);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        var posts = new List<Post>();
+                        while (reader.Read())
+                        {
+                            posts.Add(new Post()
+                            {
+                                Id = DbUtils.GetInt(reader, "PostId"),
+                                Title = DbUtils.GetString(reader, "p.Title"),
+                            });
+                        }
+
+                        conn.Close();
+                        return posts;
+                    }
+                }
             }
         }
     }
