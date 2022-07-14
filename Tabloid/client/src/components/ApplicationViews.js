@@ -32,7 +32,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route path="users" element ={<UserList/>} />
           <Route path="posts" element={<PostList/>}/>
           <Route path="UserDetails/:userId" element={<UserDetails/>}/>
-          <Route path="/EditUser/:userId" element={<UpdateUser/>}/>
+          <Route path="EditUser/:userId" element={<UpdateUser/>}/>
           <Route path="/:postId/PostDetails" element={<PostDetail/>}/>
           <Route path="users" element={<UserList />} />
           <Route path="*" element={<p>Whoops, nothing here...</p>} />

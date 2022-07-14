@@ -10,6 +10,12 @@ export const UpdateUser = () => {
     const navigate = useNavigate();
     const {userId} = useParams();
 
+    useEffect(() => {
+        getUserById(userId)
+            .then(res => setSelectedUser(res))
+        
+    }, [])
+
     const generateAlert = (id) => {  
         let alertText = ""      
         if(id == 1){
@@ -18,13 +24,16 @@ export const UpdateUser = () => {
         else {
             alertText = "Change User from Author to Admin?"
         }
+        return alertText
     }
 
     const alertArr = [
         <div className="alert">
             <Alert color="warning">
-                {generateAlert(selectedUser.userType.id)}
+                {generateAlert(selectedUser.userTypeId)}
             </Alert>
+            <Button color="primary" onClick={()=> {handleUpdateUserType()}}>Yes</Button>
+            <Button color="secondary" onClick={() => {setIsClicked(false)}}>Cancel</Button>
         </div>,
         ""
     ]
@@ -33,7 +42,7 @@ export const UpdateUser = () => {
         const newUser = {...selectedUser}
         if(newUser.userType.id == 1){
             let changeUser = {
-                Id : newUser.id,
+                id : newUser.id,
                 firebaseUserId : newUser.firebaseUserId,
                 firstName : newUser.firstName,
                 lastName : newUser.lastName,
@@ -48,10 +57,12 @@ export const UpdateUser = () => {
                 },
                 fullName : newUser.fullName
             } 
-            changeUserType(changeUser)           
+            changeUserType(changeUser)
+            getUserById(changeUser.id).then(res => setSelectedUser(res))
+            setIsClicked(false)           
         } else {
             let changeUser = {
-                Id : newUser.id,
+                id : newUser.id,
                 firebaseUserId : newUser.firebaseUserId,
                 firstName : newUser.firstName,
                 lastName : newUser.lastName,
@@ -67,14 +78,12 @@ export const UpdateUser = () => {
                 fullName : newUser.fullName
             }   
             changeUserType(changeUser)
+            getUserById(changeUser.id).then(res => setSelectedUser(res))
+            setIsClicked(false) 
         }
     }
 
-    useEffect(() => {
-        getUserById(userId)
-            .then(res => setSelectedUser(res))
-        
-    }, [])
+    
 
     return (
         <div className="update-user">
@@ -82,11 +91,12 @@ export const UpdateUser = () => {
                 <CardBody>
                     <CardTitle>{selectedUser.firstName} {selectedUser.lastName}</CardTitle>
                     <CardSubtitle>{selectedUser.displayName}</CardSubtitle>
-                    <CardText>User Type: {selectedUser.userType.name}</CardText>
+                    <CardText>User Type: {selectedUser.userType?.name}</CardText>
                     <Button onClick={() => {setIsClicked(true)}}>Change</Button>
                     {isClicked ? alertArr[0] : alertArr[1]}
                 </CardBody>
             </Card>
+            <Button color="danger" onClick={()=> navigate("/users")}>Back</Button>
         </div>
     )
 }
