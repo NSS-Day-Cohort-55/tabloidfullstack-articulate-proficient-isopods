@@ -11,5 +11,8 @@ namespace Tabloid.Repositories
         void Delete(int id);
 
         void Update(Post post);
+
+        void AddPost(Post post);
+
     }
 }
