@@ -12,5 +12,8 @@ namespace Tabloid.Repositories
 
         void Update(Post post);
         List<Post> GetPostByTagName(string name);
+
+        void AddPost(Post post);
+
     }
 }

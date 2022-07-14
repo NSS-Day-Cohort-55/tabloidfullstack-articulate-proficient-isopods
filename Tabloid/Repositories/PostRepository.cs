@@ -12,11 +12,6 @@ namespace Tabloid.Repositories
         public PostRepository(IConfiguration configuration)
             : base(configuration) { }
 
-        public void Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<Post> GetAllPosts()
         {
             using (var conn = Connection)
@@ -159,6 +154,51 @@ namespace Tabloid.Repositories
                     cmd.ExecuteNonQuery();
 
                 }
+                conn.Close();
+            }
+        }
+
+        public void AddPost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO POST (Title, Content, ImageLocation, CreateDateTime, IsApproved, CategoryId, UserProfileId)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@title, @content, @image, @date, @approved, @category, @user)";
+
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@content", post.Content);
+                    cmd.Parameters.AddWithValue("@image", post.ImageLocation);
+                    cmd.Parameters.AddWithValue("@date", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@approved", false);
+                    cmd.Parameters.AddWithValue("@category", post.CategoryId);
+                    cmd.Parameters.AddWithValue("@user", post.UserProfileId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+                conn.Close();
+            }
+        }
+
+        public void Delete(int id)
+        { 
+            using(var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Post WHERE Id=@id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
             }
         }
 

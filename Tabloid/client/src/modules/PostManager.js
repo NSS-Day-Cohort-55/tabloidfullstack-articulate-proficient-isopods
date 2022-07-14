@@ -25,3 +25,21 @@ export const getPostByTagName = (name) => {
     return fetch(`${baseUrl}/tagName?tagName=${name}`)
     .then(res => res.json())
   }
+export const addPost = (postObj) =>{
+    return fetch(`${baseUrl}/${postObj.id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(postObj)
+    }).then(res => res.json())
+}
+
+export const deletePost = (postObj) =>{
+    return fetch(`${baseUrl}/${postObj.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type" : "application/json"
+        }
+    }).then(res => res.json())
+}
