@@ -12,6 +12,7 @@ import { TagForm } from "./tag/TagForm";
 import { TagEditForm } from "./tag/TagEditForm";
 import { PostDetail } from "./post/PostDetail";
 import { CategoryList } from "./category/CategoryList";
+import { PostEdit } from "./post/PostEdit";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -34,6 +35,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route path="UserDetails/:userId" element={<UserDetails/>}/>
           <Route path="EditUser/:userId" element={<UpdateUser/>}/>
           <Route path="/:postId/PostDetails" element={<PostDetail/>}/>
+          <Route path="/:postId/Edit" element={<PostEdit/>}/>
           <Route path="users" element={<UserList />} />
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
           <Route path="category" element={<CategoryList />} />

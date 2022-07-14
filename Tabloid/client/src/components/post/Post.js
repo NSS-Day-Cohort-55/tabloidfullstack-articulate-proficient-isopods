@@ -15,12 +15,13 @@ export const Post = ({post}) =>{
     }, [])
 
     return (
-            <Card onClick={() => navigate(`${post.id}/PostDetails`)}>
+            <Card >
                 <h3>{post.title}</h3>
-                <CardBody>
+                <CardBody onClick={() => navigate(`${post.id}/PostDetails`)}>
                     <p>{post.profile.displayName}</p>
                     <p>{post.createDateTime}</p>
                 </CardBody>
+                <button onClick={()=> navigate(`${post.id}/Edit`)}>Edit</button>
             </Card>
 
 
