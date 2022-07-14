@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { getAllTags, deleteTag } from "../../modules/tagManager";
+import { getAllTags, deleteTag, getTagsByName } from "../../modules/tagManager";
 import { TagCard } from "./TagCard";
 
 export const TagList = () => {
@@ -25,10 +25,40 @@ export const TagList = () => {
     .then(() => getTags())
   };
 
+  const CallSearchTags = () => {
+  
+  const name = document.getElementById('name').value
+
+  if (name != "") {
+    getTagsByName(name).then((response) => setTags(response));
+    document.getElementById('name').value = ""
+  }
+
+  else {
+    window.alert("You already have a Hideout by this name")
+  }
+  };
+
+  const CallReset = () => {
+    getTags()
+    };
+
+
 
   return (
     <div className="user-display">
-      
+      <fieldset>
+						<label htmlFor="name">Search Tags:</label>
+						<input type="text" id="name" className="form-control"/>
+				</fieldset>
+      <button
+						onClick={CallSearchTags}>
+						Search
+			</button>
+      <button
+						onClick={CallReset}>
+						Reset
+			</button>
         <Table>
             <thead>
                 <tr>
