@@ -6,7 +6,7 @@ import Hello from "./Hello";
 import { UserDetails } from "./Users/UserDetails";
 import {PostList} from "./post/PostList.js"
 import { UserList } from "./Users/UserList";
-import { UpdateUser } from "./Users/UpdateUser";
+import {UpdateUser} from "./Users/UpdateUser"
 import { TagList } from "./tag/TagList";
 import { TagForm } from "./tag/TagForm";
 import { TagEditForm } from "./tag/TagEditForm";
