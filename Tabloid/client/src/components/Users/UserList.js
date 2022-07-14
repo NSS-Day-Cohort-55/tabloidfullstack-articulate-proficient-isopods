@@ -20,6 +20,10 @@ export const UserList = () => {
         navigate(`/UserDetails/${id}`)
     }
 
+    const handleNavigateEdit = (id) => {
+        navigate(`/EditUser/${id}`)
+    }
+
     return (
         <div className="user-display">
             <Table>
@@ -38,6 +42,7 @@ export const UserList = () => {
                             <td>{user.firstName} {user.lastName}</td>
                             <td>{user.userType.name}</td>
                             <td><button onClick={() => handleNavigate(user.id)}>Details</button></td>
+                            <td><button onClick={() => handleNavigateEdit(user.id)}>Edit</button></td>
                         </tr>                        
                     </>
                     )}

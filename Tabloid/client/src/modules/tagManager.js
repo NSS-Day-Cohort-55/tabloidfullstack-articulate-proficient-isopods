@@ -9,6 +9,11 @@ export const getTagById = (tagId) => {
   .then(res => res.json())
 }
 
+export const getTagsByName = (name) => {
+  return fetch(`${baseUrl}/name?name=${name}`)
+  .then(res => res.json())
+}
+
 export const addTag = (newTag) => {
   return fetch (`${baseUrl}`, {
     method: "POST",

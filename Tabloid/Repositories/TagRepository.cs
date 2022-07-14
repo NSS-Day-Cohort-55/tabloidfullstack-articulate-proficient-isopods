@@ -40,6 +40,41 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public List<Tag> GetAllTagsByName(string name)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, Name 
+                        FROM Tag
+                        WHERE Name LIKE '%' + @name + '%'
+                        ";
+
+                    DbUtils.AddParameter(cmd, "@name", name);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        var tags = new List<Tag>();
+                        while (reader.Read())
+                        {
+                            tags.Add(new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                            });
+                        }
+
+                        conn.Close();
+                        return tags;
+                    }
+                }
+            }
+        }
+
         public Tag GetById(int id)
         {
             using (var conn = Connection)

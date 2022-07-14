@@ -6,6 +6,7 @@ import Hello from "./Hello";
 import { UserDetails } from "./Users/UserDetails";
 import {PostList} from "./post/PostList.js"
 import { UserList } from "./Users/UserList";
+import {UpdateUser} from "./Users/UpdateUser"
 import { TagList } from "./tag/TagList";
 import { TagForm } from "./tag/TagForm";
 import { TagEditForm } from "./tag/TagEditForm";
@@ -33,6 +34,7 @@ export default function ApplicationViews({ isLoggedIn, getLoggedInUser }) {
           <Route path="users" element ={<UserList/>} />
           <Route path="posts" element={<PostList/>}/>
           <Route path="UserDetails/:userId" element={<UserDetails/>}/>
+          <Route path="EditUser/:userId" element={<UpdateUser/>}/>
           <Route path="/:postId/PostDetails" element={<PostDetail/>}/>
           <Route path="/:postId/Edit" element={<PostEdit/>}/>
           <Route path="new_post" element={<PostNew getLoggedInUser={getLoggedInUser}/>}/>
