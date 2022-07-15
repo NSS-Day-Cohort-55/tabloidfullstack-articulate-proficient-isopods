@@ -17,14 +17,16 @@ export default function Header({ isLoggedIn, getLoggedInUser }) {
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    getLoggedInUser()
-      .then(currentUser => {
-        if(currentUser.userTypeId == 1){
-          setIsAdmin(true)
-        } else {
-          setIsAdmin(false)
-        }
-      })
+    if(isLoggedIn){
+      getLoggedInUser()
+        .then(currentUser => {
+          if(currentUser.userTypeId == 1){
+            setIsAdmin(true)
+          } else {
+            setIsAdmin(false)
+          }
+        })
+    }
   }, [])
 
   const navArr = [
