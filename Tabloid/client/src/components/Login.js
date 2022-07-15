@@ -14,6 +14,7 @@ export default function Login() {
     login(email, password)
       .then(() => navigate("/"))
       .catch(() => alert("Invalid email or password"));
+
   };
 
   return (

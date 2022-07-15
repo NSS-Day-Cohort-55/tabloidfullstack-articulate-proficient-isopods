@@ -27,7 +27,7 @@ export default function Header({ isLoggedIn, getLoggedInUser }) {
           }
         })
     }
-  }, [])
+  }, [isLoggedIn])
 
   const navArr = [
     <>
