@@ -36,7 +36,7 @@ export default function ApplicationViews({ isLoggedIn, getLoggedInUser }) {
           <Route path="users" element ={<UserList/>} />
           <Route path="posts" element={<PostList/>}/>
           <Route path="UserDetails/:userId" element={<UserDetails/>}/>
-          <Route path="EditUser/:userId" element={<UpdateUser/>}/>
+          <Route path="EditUser/:userId" element={<UpdateUser getLoggedInUser={getLoggedInUser}/>}/>
           <Route path="/:postId/PostDetails" element={<PostDetail/>}/>
           <Route path="/:postId/Edit" element={<PostEdit/>}/>
           <Route path="new_post" element={<PostNew getLoggedInUser={getLoggedInUser}/>}/>

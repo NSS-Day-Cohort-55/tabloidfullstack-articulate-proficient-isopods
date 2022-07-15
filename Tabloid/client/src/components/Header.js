@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -11,9 +11,57 @@ import {
 } from "reactstrap";
 import { logout } from "../modules/authManager";
 
-export default function Header({ isLoggedIn }) {
+export default function Header({ isLoggedIn, getLoggedInUser }) {
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    if(isLoggedIn){
+      getLoggedInUser()
+        .then(currentUser => {
+          if(currentUser.userTypeId == 1){
+            setIsAdmin(true)
+          } else {
+            setIsAdmin(false)
+          }
+        })
+    }
+  }, [isLoggedIn])
+
+  const navArr = [
+    <>
+      <NavItem>
+        <NavLink tag={RRNavLink} to="/">
+         Home
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink tag={RRNavLink} to="/category">
+         Category Management
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink tag={RRNavLink} to="users">
+         Users
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink tag={RRNavLink} to="/tag">
+          Tag Manager
+        </NavLink>
+      </NavItem>
+    </>,
+    <>
+      <NavItem>
+        <NavLink tag={RRNavLink} to="/">
+        Home
+        </NavLink>
+      </NavItem>
+    </>
+    
+
+  ]
 
   return (
     <div>
@@ -27,26 +75,7 @@ export default function Header({ isLoggedIn }) {
             {/* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn && (
               <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
-                    Home
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/category">
-                    Category Management
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="users">
-                    Users
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/tag">
-                    Tag Manager
-                  </NavLink>
-                </NavItem>
+                {isAdmin ? navArr[0] : navArr[1]}
               </>
             )}
           </Nav>
