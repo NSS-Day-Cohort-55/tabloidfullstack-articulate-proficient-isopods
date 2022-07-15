@@ -18,7 +18,7 @@ function App({getLoggedInUser}) {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn}/>
+      <Header isLoggedIn={isLoggedIn} getLoggedInUser={getLoggedInUser}/>
       <ApplicationViews isLoggedIn={isLoggedIn} getLoggedInUser={getLoggedInUser}/>
     </Router>
   );
