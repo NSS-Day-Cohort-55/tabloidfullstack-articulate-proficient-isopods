@@ -9,7 +9,9 @@ export const UpdateUser = ({getLoggedInUser}) => {
     const [isClicked, setIsClicked] = useState(false);
     const navigate = useNavigate();
     const {userId} = useParams();
-    const [currentUser, setCurrentUser] = useState({})
+    const [currentUser, setCurrentUser] = useState({});
+    const [isSelf, setIsSelf] = useState(false);
+    const [isAuthor, setIsAuthor] = useState(false);
 
     useEffect(() => {
         getLoggedInUser()
@@ -20,18 +22,21 @@ export const UpdateUser = ({getLoggedInUser}) => {
     useEffect(() => {
         getUserById(userId)
             .then(res => {
-                //TODO Fix this you dunce
-                if(currentUser.userTypeId == 1){
-                    setSelectedUser(res)
-                } else if (currentUser.id == res.id){
-                    return "Can't change your own status. Shoo."
-                }                
-                else{
-                    return "Not an admin. Go away."
-                }
+                
+                setSelectedUser(res)
             })
         
     }, [currentUser])
+
+    const verifyUser = (userObj) => {
+        if(userObj.userTypeId != 1){
+            setIsAuthor(true)
+        } else if (currentUser.id == selectedUser.id){
+            setIsSelf(true)
+        } else {
+            setIsClicked(true)
+        }
+    }
 
     const generateAlert = (id) => {  
         let alertText = ""      
@@ -52,7 +57,18 @@ export const UpdateUser = ({getLoggedInUser}) => {
             <Button color="primary" onClick={()=> {handleUpdateUserType()}}>Yes</Button>
             <Button color="secondary" onClick={() => {setIsClicked(false)}}>Cancel</Button>
         </div>,
-        ""
+        "",
+        <div className="alert">
+            <Alert color="danger">
+                You are not an Admin
+            </Alert>
+        </div>,
+        <div className="alert">
+            <Alert color="danger">
+                Cannot change your own profile type. Shoo.
+            </Alert>
+        </div>
+
     ]
 
     const handleUpdateUserType = () => {
@@ -109,8 +125,10 @@ export const UpdateUser = ({getLoggedInUser}) => {
                     <CardTitle>{selectedUser.firstName} {selectedUser.lastName}</CardTitle>
                     <CardSubtitle>{selectedUser.displayName}</CardSubtitle>
                     <CardText>User Type: {selectedUser.userType?.name}</CardText>
-                    <Button onClick={() => {setIsClicked(true)}}>Change</Button>
+                    <Button onClick={() => {verifyUser(currentUser)}}>Change</Button>
                     {isClicked ? alertArr[0] : alertArr[1]}
+                    {isAuthor ? alertArr[2] : ""}
+                    {isSelf ? alertArr[3]: ""}
                 </CardBody>
             </Card>
             <Button color="danger" onClick={()=> navigate("/users")}>Back</Button>
